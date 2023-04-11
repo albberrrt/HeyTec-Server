@@ -3,8 +3,6 @@ import jwt from 'jsonwebtoken'
 
 interface UserData {
     userId: {};
-    username: string;
-    email: string;
 }
 
 export function generateToken(userData: UserData): string {
@@ -16,8 +14,6 @@ export function generateToken(userData: UserData): string {
 
     const payload = {
         userId: userData.userId,
-        username: userData.username,
-        email: userData.email,
     };
 
     const token = jwt.sign(payload, jwtSecret, { expiresIn: '1h'});

@@ -4,8 +4,7 @@ import cors from "@fastify/cors";
 import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 import { generateToken } from "./services/generateToken";
-import { generateCookie } from "./services/generateCookie";
-
+require('dotenv').config();
 
 async function bootstrap() {
 
@@ -24,6 +23,7 @@ async function bootstrap() {
 
     await fastify.register(cors, {
         origin: true,
+        credentials: true,
     });
 
     fastify.get("/helloworld", async () => {
@@ -58,16 +58,18 @@ async function bootstrap() {
                 }
             })
     
-            const token = generateToken({ userId, username, email })
+            const token = generateToken({ userId })
 
-            await generateCookie(reply, token);
+            reply.send({ token: token });
+            reply.status(201);
     
         } catch (error) {
+            console.log("error: " + error);
             reply.status(500).send({ status: "error" });
         }
     })
 
-    await fastify.listen({ port: 7777 /*host: "0.0.0.0"*/ });
+    await fastify.listen({ port: 7777, host: '192.168.15.5' /*host: "0.0.0.0"*/ });
         
 }
 
