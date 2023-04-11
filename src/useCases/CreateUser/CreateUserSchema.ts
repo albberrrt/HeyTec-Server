@@ -1,3 +1,4 @@
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from "zod";
 
 export const CreateUserSchema = () => {
@@ -7,7 +8,7 @@ export const CreateUserSchema = () => {
     password: z.string(),
   })
 
-  return(req, res, next) => {
+  return(req: FastifyRequest, next: () => void) => {
     const { username, email, password } = schema.parse(req.body);
     req.body = { username, email, password };
     next();
