@@ -1,11 +1,13 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { CreateUserUseCase } from './CreateUserUseCase';
+
+interface RequestBody {
+  username: string;
+  email: string;
+  password: string;
+}
 interface CustomFastifyRequest extends FastifyRequest {
-  body: {
-    username: string;
-    email: string;
-    password: string;
-  };
+  Body: RequestBody,
 }
 export class CreateUserController {
   constructor(

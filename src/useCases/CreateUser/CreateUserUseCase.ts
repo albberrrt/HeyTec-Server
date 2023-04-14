@@ -4,7 +4,7 @@ import { ICreateUserRequestDTO } from "./CreateUserDTO";
 
 export class CreateUserUseCase {
     constructor (
-       private usersRepository: IUsersRepository; 
+       private usersRepository: IUsersRepository,
     ) {}
 
     async execute(data: ICreateUserRequestDTO) {
